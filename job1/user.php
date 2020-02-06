@@ -49,13 +49,13 @@
 				$this->lastname = $resultSelect['lastname'] ;
 				$_SESSION['momo'] = $this;
 
-				echo "Vous etes co<br />";
+				
 				return $_SESSION['momo'];
-				var_dump($_SESSION['momo']);
+				
 			}
 			else
 			{
-				echo "Mauvais log <br />" ;
+				
 			}
 		}
 
@@ -70,7 +70,7 @@
 			$this->firstname = null;
 			$this->lastname = null;
 
-			echo "Vous etes deco <br />";
+			
 		}
 
 		public function delete()
@@ -80,7 +80,7 @@
 			$queryDelete = mysqli_query($connexion,$requeteDelete) ;
 
 			$this->disconnect();
-			echo "ON TA SUPPRIME <br />";
+			
 		}
 
 		public function update($login,$email,$firstname,$lastname,$password)
@@ -88,9 +88,9 @@
 			$connexion = mysqli_connect("localhost","root","","poo_test");
 			$update = "UPDATE user SET login = '$login', password = '$password', email = '$email', firstname = '$firstname', lastname = '$lastname' WHERE login ='$this->login'" ;
 			$queryUpdate = mysqli_query($connexion,$update) ;
-			echo $update;
+			
 
-			echo "MODIF FAITE";
+			
 		}
 
 		public function isConnected()
@@ -114,7 +114,7 @@
 			$querySelect = mysqli_query($connexion,$selectUser);
 			$resultSelect = mysqli_fetch_assoc($querySelect);
 
-			var_dump($resultSelect) ;
+			
 		}
 
 		public function getLogin()
@@ -124,7 +124,7 @@
 			$queryLogin = mysqli_query($connexion,$selectLogin);
 			$resultLogin = mysqli_fetch_assoc($queryLogin);
 
-			var_dump($resultLogin) ;
+			
 		}
 
 		public function getEmail()
@@ -134,7 +134,7 @@
 			$queryEmail = mysqli_query($connexion,$selectEmail);
 			$resultEmail = mysqli_fetch_assoc($queryEmail);
 
-			var_dump($resultEmail) ;
+			
 		}
 
 		public function getFirstname()
@@ -144,7 +144,7 @@
 			$queryFirstname = mysqli_query($connexion,$selectFirstname);
 			$resultFirstname = mysqli_fetch_assoc($queryFirstname);
 
-			var_dump($resultFirstname) ;
+			
 		}
 
 		public function getLastname()
@@ -154,7 +154,7 @@
 			$queryLastname = mysqli_query($connexion,$selectLastname);
 			$resultLastname = mysqli_fetch_assoc($queryLastname);
 
-			var_dump($resultLastname) ;
+			
 		}
 
 		public function refresh()
