@@ -50,6 +50,8 @@
 				$_SESSION['momo'] = $this;
 
 				echo "Vous etes co<br />";
+				return $_SESSION['momo'];
+				var_dump($_SESSION['momo']);
 			}
 			else
 			{
@@ -84,8 +86,9 @@
 		public function update($login,$email,$firstname,$lastname,$password)
 		{
 			$connexion = mysqli_connect("localhost","root","","poo_test");
-			$update = "UPDATE user SET login = '$login', password = '$password', email = '$email', firstname = '$firstname', lastname = '$lastname' WHERE login =".$_SESSION['login']." " ;
+			$update = "UPDATE user SET login = '$login', password = '$password', email = '$email', firstname = '$firstname', lastname = '$lastname' WHERE login ='$this->login'" ;
 			$queryUpdate = mysqli_query($connexion,$update) ;
+			echo $update;
 
 			echo "MODIF FAITE";
 		}
@@ -104,6 +107,71 @@
 			}
 		}
 
+		public function getAllInfos()
+		{
+			$connexion = mysqli_connect("localhost","root","","poo_test");
+			$selectUser = "SELECT * FROM user WHERE login ='$this->login'";
+			$querySelect = mysqli_query($connexion,$selectUser);
+			$resultSelect = mysqli_fetch_assoc($querySelect);
+
+			var_dump($resultSelect) ;
+		}
+
+		public function getLogin()
+		{
+			$connexion = mysqli_connect("localhost","root","","poo_test");
+			$selectLogin = "SELECT login FROM user WHERE login ='$this->login'";
+			$queryLogin = mysqli_query($connexion,$selectLogin);
+			$resultLogin = mysqli_fetch_assoc($queryLogin);
+
+			var_dump($resultLogin) ;
+		}
+
+		public function getEmail()
+		{
+			$connexion = mysqli_connect("localhost","root","","poo_test");
+			$selectEmail = "SELECT email FROM user WHERE login ='$this->login'";
+			$queryEmail = mysqli_query($connexion,$selectEmail);
+			$resultEmail = mysqli_fetch_assoc($queryEmail);
+
+			var_dump($resultEmail) ;
+		}
+
+		public function getFirstname()
+		{
+			$connexion = mysqli_connect("localhost","root","","poo_test");
+			$selectFirstname = "SELECT firstname FROM user WHERE login ='$this->login'";
+			$queryFirstname = mysqli_query($connexion,$selectFirstname);
+			$resultFirstname = mysqli_fetch_assoc($queryFirstname);
+
+			var_dump($resultFirstname) ;
+		}
+
+		public function getLastname()
+		{
+			$connexion = mysqli_connect("localhost","root","","poo_test");
+			$selectLastname = "SELECT lastname FROM user WHERE login ='$this->login'";
+			$queryLastname = mysqli_query($connexion,$selectLastname);
+			$resultLastname = mysqli_fetch_assoc($queryLastname);
+
+			var_dump($resultLastname) ;
+		}
+
+		public function refresh()
+		{
+			$connexion = mysqli_connect("localhost","root","","poo_test");
+			$selectUser = "SELECT * FROM user WHERE login ='$this->login'";
+			$querySelect = mysqli_query($connexion,$selectUser);
+			$resultSelect = mysqli_fetch_assoc($querySelect);
+
+			$this->login = $resultSelect['login'] ;
+			$this->password = $resultSelect['password'] ;
+			$this->email = $resultSelect['email'] ;
+			$this->firstname = $resultSelect['firstname'] ;
+			$this->lastname = $resultSelect['lastname'] ;
+
+		}
+
 		
 	}
 
@@ -111,17 +179,26 @@
 
 	$user = new user();
 
-	$user->register('PAUL','mohamed.azzouz@laplateforme.io','SERGE','POMMM','TITI') ;
+	#$user->register('PAUL','mohamed.azzouz@laplateforme.io','SERGE','POMMM','TITI') ;
 
-	$user->connect('PAUL','TITI') ;
+	$user->connect('Serge','serge') ;
 
 	$user->disconnect();
 
-	#$user->delete() ;
+	$user->delete() ;
 
-	#$user->update('Luffy','luffy.Katakuri@laplateforme.io','MonkeyD','Omaewa','LOP') ;
+	$user->update('Serge','serge@laplateforme.io','serge','serge','serge') ;
 
 	$test = $user->isConnected();
-	var_dump($test);	
+		
+
+	$user->getAllInfos();
+
+	$user->getLogin() ;
+	$user->getEmail() ;
+	$user->getFirstname() ;
+	$user->getLastName() ;
+
+	$user->refresh();
 
 ?>
